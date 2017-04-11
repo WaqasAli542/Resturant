@@ -1,0 +1,193 @@
+﻿@{
+    ViewBag.Title = "AddFood";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+@model Resturant.Models.SpecialOffer
+@using Resturant.Models;
+<script type="text/javascript">
+    function updateValue() {
+
+        $.ajax({
+            dataType: "json",
+            type: "GET",
+            url: '@Url.Action("getCategory", "AdminFood")',
+            contentType: "application/json; charset=utf-8",
+            data: { cousineId: parseInt($('#CousineId').val()) },
+            success: function (response) {
+
+                var $el = $("#CategoryId");
+                $el.empty(); // remove old options
+                $el.append($("<option></option>")
+                        .attr("value", '').text('Please Select'));
+
+                $.each(response, function (value, key) {
+
+                    $el.append($("<option></option>")
+                            .attr("value", key.Id).text(key.Name));
+                });
+            },
+            error: function (response) { alert(response ); }
+
+        });
+
+    }
+
+</script>
+
+
+
+
+<div class="box">
+    <div class="box-header">
+        <h3 class="box-title">List of AddsOn</h3>
+        <input type="button" style="margin-left:84%;" class="btn btn-primary" data-toggle="modal" data-target="#AddOnmodal" value="+Add" />
+    </div>
+    <div class="box-body">
+        <table id="example2" class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th class="col-md-10">Name</th>
+                    <th>Food Category</th>
+
+
+
+
+            </thead>
+            @foreach (SpecialOffer_AddOn fa in ViewBag.AddOn)
+            {
+
+                <tr>
+                    <td>@fa..Name</td>
+                    <td>@Html.ActionLink("Delete Special Offer", "deleteSpecialOfferAddOn", new { _Itemid = fa.Id, _OfferId=Model.Id }, new { @type = "button", @class = "btn btn-block btn-primary" }) </td>
+
+                </tr>
+            }
+            <tbody>
+        </table>
+    </div>
+</div>
+<div class="box">
+    <div class="box-header">
+        <h3 class="box-title">List of Items</h3>
+        <input type="button" style="margin-left:84%;" class="btn btn-primary" data-toggle="modal" data-target="#itemsModal" value="+Add" />
+    </div>
+    <div class="box-body">
+        <table id="example2" class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th class="col-md-10">Name</th>
+                    <th>Food Category</th>
+
+
+
+
+            </thead>
+            @foreach (SpecialOffer_Item fa in ViewBag.Items)
+            {
+
+                <tr>
+                    <td>@fa..Name</td>
+                    <td>@Html.ActionLink("Delete Special Offer", "deleteSpecialOfferAddOn", new { _Itemid = fa.Id, _OfferId = Model.Id }, new { @type = "button", @class = "btn btn-block btn-primary" }) </td>
+
+                </tr>
+            }
+            <tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Sizes -->
+<div class="example-modal">
+    <div class="modal" id="itemsModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="..\AdminFood\addSpecialOfferItem">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title">Add Food Item</h4>
+                    </div>
+
+
+
+
+                    <div class="form-group">
+                        <label>Select Cousine</label>
+                        <select class="form-control" onchange="updateValue()" id="CousineId" name="CousineId">
+                            <option>Select a Cousine</option>
+                            @foreach (Cousine cousine in ViewBag.Cousines)
+                            {
+                                <option value=@cousine.Id>@cousine.Name</option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Select Cousine</label>
+                        <select class="form-control"  id="SizeId" name="SizeId">
+                            <option>Select a Cousine</option>
+                            @foreach (Food_Size size in ViewBag.Sizes)
+                            {
+                                <option value=@size.Id>@size.SizeDescription</option>
+                            }
+                        </select>
+                    </div>
+
+
+
+                        @Html.Hidden("SpecialOfferID", Model.Id);
+
+                    <div class="form-group">
+                        <label>Select Category</label>
+                        <select class="form-control" id="CategoryId" name="CategoryId"></select>
+                    </div>
+
+                    <div class="form-group">
+
+                        <input type="number" class="form-control" name="Quantity" placeholder="Enter the Quantity">
+                    </div>
+
+
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="flexible" id="optionsRadios2" value="1">
+                            Flat Price
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="flexible" id=" optionsradios2" value="2">
+                            Flexible
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="flexible" id=" optionsradios2" value="3">
+                            Only lowest
+                        </label>
+                    </div>
+
+
+                    <!-- radio -->
+                    <!-- select -->
+                    <!-- Select multiple-->
+                    @Html.Hidden("FoodId", @Model.Id)
+                    <div class="modal-footer">
+                        <input type="button" class="btn btn-default pull-left" value="Close" data-dismiss="modal">
+                        <input type="submit" class="btn btn-primary" value="Save changes">
+
+                    </div>
+                </form>
+
+            </div>
+
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+</div>
+
+
+

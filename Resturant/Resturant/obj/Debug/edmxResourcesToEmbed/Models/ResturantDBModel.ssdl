@@ -1,0 +1,681 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ResturantDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityType Name="AddOn">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="25" Nullable="false" />
+    <Property Name="Price" Type="float" Nullable="false" />
+    <Property Name="Category" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Admin">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FirstName" Type="varchar" MaxLength="25" />
+    <Property Name="LastName" Type="varchar" MaxLength="25" />
+    <Property Name="Email" Type="varchar" MaxLength="25" />
+    <Property Name="PhoneNumber" Type="varchar" MaxLength="25" />
+    <Property Name="Address" Type="varchar" MaxLength="25" />
+    <Property Name="City" Type="varchar" MaxLength="25" />
+    <Property Name="Country" Type="varchar" MaxLength="25" />
+    <Property Name="Password" Type="varchar" MaxLength="25" />
+    <Property Name="AccessLevel" Type="varchar" MaxLength="25" />
+  </EntityType>
+  <EntityType Name="Branch">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="25" Nullable="false" />
+    <Property Name="Address" Type="varchar(max)" Nullable="false" />
+    <Property Name="Image" Type="varchar(max)" />
+    <Property Name="ResturantID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Branch_Day">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StartingTime" Type="datetime" Nullable="false" />
+    <Property Name="EndingTime" Type="datetime" Nullable="false" />
+    <Property Name="BranchID" Type="int" Nullable="false" />
+    <Property Name="DayID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Branch_Item">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BranchID" Type="int" Nullable="false" />
+    <Property Name="ItemID" Type="int" Nullable="false" />
+    <Property Name="IDType" Type="int" Nullable="false" />
+    <Property Name="Aavailibility" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="CousineId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Cousine">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="FirstName" Type="varchar" MaxLength="25" Nullable="false" />
+    <Property Name="LastName" Type="varchar" MaxLength="25" Nullable="false" />
+    <Property Name="Email" Type="varchar" MaxLength="25" Nullable="false" />
+    <Property Name="PhoneNumber" Type="varchar" MaxLength="25" Nullable="false" />
+    <Property Name="Address" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="City" Type="varchar" MaxLength="25" Nullable="false" />
+    <Property Name="Country" Type="varchar" MaxLength="25" Nullable="false" />
+    <Property Name="PostCode" Type="varchar" MaxLength="25" Nullable="false" />
+    <Property Name="Password" Type="varchar" MaxLength="25" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Day">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="25" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ExtraCharges">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="25" Nullable="false" />
+    <Property Name="Price" Type="float" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Food">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Tageline" Type="varchar" MaxLength="300" />
+    <Property Name="Image" Type="varchar" MaxLength="100" />
+    <Property Name="CategoryId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Food_AddOn">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FoodId" Type="int" Nullable="false" />
+    <Property Name="AddOnId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Food_Ingredients">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FoodID" Type="int" Nullable="false" />
+    <Property Name="IngredientsID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Food_Size">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SizeDescription" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="FoodItem">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Size" Type="varchar" MaxLength="25" Nullable="false" />
+    <Property Name="Price" Type="float" Nullable="false" />
+    <Property Name="FoodId" Type="int" Nullable="false" />
+    <Property Name="Food_Size_Id" Type="int" />
+  </EntityType>
+  <EntityType Name="FoodItem_AddOn">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FoodItemId" Type="int" Nullable="false" />
+    <Property Name="AddOnId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Ingredients">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="25" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Order">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CustomerId" Type="int" Nullable="false" />
+    <Property Name="Status" Type="int" Nullable="false" />
+    <Property Name="PaymentMethodId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Order_ExtraCharges">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OrderID" Type="int" Nullable="false" />
+    <Property Name="ExtraChargesID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Order_Item">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OrderID" Type="int" Nullable="false" />
+    <Property Name="ItemID" Type="int" Nullable="false" />
+    <Property Name="IDType" Type="int" Nullable="false" />
+    <Property Name="Count" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Order_Taxes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OrderID" Type="int" Nullable="false" />
+    <Property Name="TaxesID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PaymentMethod">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="25" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Postcodes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PostCodeValue" Type="varchar" MaxLength="25" Nullable="false" />
+    <Property Name="AreaName" Type="varchar" MaxLength="75" Nullable="false" />
+    <Property Name="BranchID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ResturantDetails">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="25" Nullable="false" />
+    <Property Name="Tagline" Type="varchar" MaxLength="25" Nullable="false" />
+    <Property Name="Location" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SpecialOffer">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StartingDate" Type="datetime" />
+    <Property Name="EndingDate" Type="datetime" />
+    <Property Name="Price" Type="float" Nullable="false" />
+    <Property Name="Image" Type="varchar" MaxLength="75" />
+    <Property Name="Description" Type="varchar" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="SpecialOffer_Item">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SpecialOfferID" Type="int" Nullable="false" />
+    <Property Name="ItemID" Type="int" Nullable="false" />
+    <Property Name="IDType" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Taxes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="25" Nullable="false" />
+    <Property Name="Percentage" Type="float" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Branch_Day_Branch">
+    <End Role="Branch" Type="Self.Branch" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Branch_Day" Type="Self.Branch_Day" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Branch">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Branch_Day">
+        <PropertyRef Name="BranchID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Branch_Day_Day">
+    <End Role="Day" Type="Self.Day" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Branch_Day" Type="Self.Branch_Day" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Day">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Branch_Day">
+        <PropertyRef Name="DayID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Branch_Item_ToTable">
+    <End Role="Branch" Type="Self.Branch" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Branch_Item" Type="Self.Branch_Item" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Branch">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Branch_Item">
+        <PropertyRef Name="BranchID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Branch_ResturantDetails">
+    <End Role="ResturantDetails" Type="Self.ResturantDetails" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Branch" Type="Self.Branch" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ResturantDetails">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Branch">
+        <PropertyRef Name="ResturantID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Category_Cousine">
+    <End Role="Cousine" Type="Self.Cousine" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Category" Type="Self.Category" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cousine">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Category">
+        <PropertyRef Name="CousineId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Food_AddOn_AddOn">
+    <End Role="AddOn" Type="Self.AddOn" Multiplicity="1" />
+    <End Role="Food_AddOn" Type="Self.Food_AddOn" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AddOn">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Food_AddOn">
+        <PropertyRef Name="AddOnId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Food_AddOn_Food">
+    <End Role="Food" Type="Self.Food" Multiplicity="1" />
+    <End Role="Food_AddOn" Type="Self.Food_AddOn" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Food">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Food_AddOn">
+        <PropertyRef Name="FoodId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Food_Ingredients_Food">
+    <End Role="Food" Type="Self.Food" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Food_Ingredients" Type="Self.Food_Ingredients" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Food">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Food_Ingredients">
+        <PropertyRef Name="FoodID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Food_Ingredients_Ingredients">
+    <End Role="Ingredients" Type="Self.Ingredients" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Food_Ingredients" Type="Self.Food_Ingredients" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ingredients">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Food_Ingredients">
+        <PropertyRef Name="IngredientsID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FoodItem_Food">
+    <End Role="Food" Type="Self.Food" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="FoodItem" Type="Self.FoodItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Food">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="FoodItem">
+        <PropertyRef Name="FoodId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FoodItem_ToFood_Size">
+    <End Role="Food_Size" Type="Self.Food_Size" Multiplicity="0..1" />
+    <End Role="FoodItem" Type="Self.FoodItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Food_Size">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="FoodItem">
+        <PropertyRef Name="Food_Size_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_CustomerId">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Order" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="CustomerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_ExtraCharges_ExtraCharges">
+    <End Role="ExtraCharges" Type="Self.ExtraCharges" Multiplicity="1" />
+    <End Role="Order_ExtraCharges" Type="Self.Order_ExtraCharges" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ExtraCharges">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Order_ExtraCharges">
+        <PropertyRef Name="ExtraChargesID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_ExtraCharges_Order">
+    <End Role="Order" Type="Self.Order" Multiplicity="1" />
+    <End Role="Order_ExtraCharges" Type="Self.Order_ExtraCharges" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Order">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Order_ExtraCharges">
+        <PropertyRef Name="OrderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_Item_Order">
+    <End Role="Order" Type="Self.Order" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Order_Item" Type="Self.Order_Item" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Order">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Order_Item">
+        <PropertyRef Name="OrderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_PaymentMethod">
+    <End Role="PaymentMethod" Type="Self.PaymentMethod" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Order" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PaymentMethod">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="PaymentMethodId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_Taxes_Order">
+    <End Role="Order" Type="Self.Order" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Order_Taxes" Type="Self.Order_Taxes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Order">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Order_Taxes">
+        <PropertyRef Name="OrderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_Taxes_Taxes">
+    <End Role="Taxes" Type="Self.Taxes" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Order_Taxes" Type="Self.Order_Taxes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Taxes">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Order_Taxes">
+        <PropertyRef Name="TaxesID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Postcodes_Branch">
+    <End Role="Branch" Type="Self.Branch" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Postcodes" Type="Self.Postcodes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Branch">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Postcodes">
+        <PropertyRef Name="BranchID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SpecialOffer_Item_SpecialOffer">
+    <End Role="SpecialOffer" Type="Self.SpecialOffer" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="SpecialOffer_Item" Type="Self.SpecialOffer_Item" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SpecialOffer">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SpecialOffer_Item">
+        <PropertyRef Name="SpecialOfferID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Table_AddOn">
+    <End Role="AddOn" Type="Self.AddOn" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="FoodItem_AddOn" Type="Self.FoodItem_AddOn" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AddOn">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="FoodItem_AddOn">
+        <PropertyRef Name="AddOnId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Table_Category">
+    <End Role="Category" Type="Self.Category" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Food" Type="Self.Food" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Food">
+        <PropertyRef Name="CategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Table_FoodItem">
+    <End Role="FoodItem" Type="Self.FoodItem" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="FoodItem_AddOn" Type="Self.FoodItem_AddOn" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FoodItem">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="FoodItem_AddOn">
+        <PropertyRef Name="FoodItemId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ResturantDatabaseModelStoreContainer">
+    <EntitySet Name="AddOn" EntityType="Self.AddOn" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Admin" EntityType="Self.Admin" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Branch" EntityType="Self.Branch" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Branch_Day" EntityType="Self.Branch_Day" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Branch_Item" EntityType="Self.Branch_Item" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Cousine" EntityType="Self.Cousine" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Day" EntityType="Self.Day" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ExtraCharges" EntityType="Self.ExtraCharges" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Food" EntityType="Self.Food" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Food_AddOn" EntityType="Self.Food_AddOn" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Food_Ingredients" EntityType="Self.Food_Ingredients" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Food_Size" EntityType="Self.Food_Size" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="FoodItem" EntityType="Self.FoodItem" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="FoodItem_AddOn" EntityType="Self.FoodItem_AddOn" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Ingredients" EntityType="Self.Ingredients" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Order_ExtraCharges" EntityType="Self.Order_ExtraCharges" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Order_Item" EntityType="Self.Order_Item" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Order_Taxes" EntityType="Self.Order_Taxes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PaymentMethod" EntityType="Self.PaymentMethod" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Postcodes" EntityType="Self.Postcodes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ResturantDetails" EntityType="Self.ResturantDetails" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SpecialOffer" EntityType="Self.SpecialOffer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SpecialOffer_Item" EntityType="Self.SpecialOffer_Item" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Taxes" EntityType="Self.Taxes" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Branch_Day_Branch" Association="Self.FK_Branch_Day_Branch">
+      <End Role="Branch" EntitySet="Branch" />
+      <End Role="Branch_Day" EntitySet="Branch_Day" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Branch_Day_Day" Association="Self.FK_Branch_Day_Day">
+      <End Role="Day" EntitySet="Day" />
+      <End Role="Branch_Day" EntitySet="Branch_Day" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Branch_Item_ToTable" Association="Self.FK_Branch_Item_ToTable">
+      <End Role="Branch" EntitySet="Branch" />
+      <End Role="Branch_Item" EntitySet="Branch_Item" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Branch_ResturantDetails" Association="Self.FK_Branch_ResturantDetails">
+      <End Role="ResturantDetails" EntitySet="ResturantDetails" />
+      <End Role="Branch" EntitySet="Branch" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Category_Cousine" Association="Self.FK_Category_Cousine">
+      <End Role="Cousine" EntitySet="Cousine" />
+      <End Role="Category" EntitySet="Category" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Food_AddOn_AddOn" Association="Self.FK_Food_AddOn_AddOn">
+      <End Role="AddOn" EntitySet="AddOn" />
+      <End Role="Food_AddOn" EntitySet="Food_AddOn" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Food_AddOn_Food" Association="Self.FK_Food_AddOn_Food">
+      <End Role="Food" EntitySet="Food" />
+      <End Role="Food_AddOn" EntitySet="Food_AddOn" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Food_Ingredients_Food" Association="Self.FK_Food_Ingredients_Food">
+      <End Role="Food" EntitySet="Food" />
+      <End Role="Food_Ingredients" EntitySet="Food_Ingredients" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Food_Ingredients_Ingredients" Association="Self.FK_Food_Ingredients_Ingredients">
+      <End Role="Ingredients" EntitySet="Ingredients" />
+      <End Role="Food_Ingredients" EntitySet="Food_Ingredients" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FoodItem_Food" Association="Self.FK_FoodItem_Food">
+      <End Role="Food" EntitySet="Food" />
+      <End Role="FoodItem" EntitySet="FoodItem" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FoodItem_ToFood_Size" Association="Self.FK_FoodItem_ToFood_Size">
+      <End Role="Food_Size" EntitySet="Food_Size" />
+      <End Role="FoodItem" EntitySet="FoodItem" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_CustomerId" Association="Self.FK_Order_CustomerId">
+      <End Role="Customer" EntitySet="Customer" />
+      <End Role="Order" EntitySet="Order" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_ExtraCharges_ExtraCharges" Association="Self.FK_Order_ExtraCharges_ExtraCharges">
+      <End Role="ExtraCharges" EntitySet="ExtraCharges" />
+      <End Role="Order_ExtraCharges" EntitySet="Order_ExtraCharges" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_ExtraCharges_Order" Association="Self.FK_Order_ExtraCharges_Order">
+      <End Role="Order" EntitySet="Order" />
+      <End Role="Order_ExtraCharges" EntitySet="Order_ExtraCharges" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_Item_Order" Association="Self.FK_Order_Item_Order">
+      <End Role="Order" EntitySet="Order" />
+      <End Role="Order_Item" EntitySet="Order_Item" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_PaymentMethod" Association="Self.FK_Order_PaymentMethod">
+      <End Role="PaymentMethod" EntitySet="PaymentMethod" />
+      <End Role="Order" EntitySet="Order" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_Taxes_Order" Association="Self.FK_Order_Taxes_Order">
+      <End Role="Order" EntitySet="Order" />
+      <End Role="Order_Taxes" EntitySet="Order_Taxes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_Taxes_Taxes" Association="Self.FK_Order_Taxes_Taxes">
+      <End Role="Taxes" EntitySet="Taxes" />
+      <End Role="Order_Taxes" EntitySet="Order_Taxes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Postcodes_Branch" Association="Self.FK_Postcodes_Branch">
+      <End Role="Branch" EntitySet="Branch" />
+      <End Role="Postcodes" EntitySet="Postcodes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SpecialOffer_Item_SpecialOffer" Association="Self.FK_SpecialOffer_Item_SpecialOffer">
+      <End Role="SpecialOffer" EntitySet="SpecialOffer" />
+      <End Role="SpecialOffer_Item" EntitySet="SpecialOffer_Item" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Table_AddOn" Association="Self.FK_Table_AddOn">
+      <End Role="AddOn" EntitySet="AddOn" />
+      <End Role="FoodItem_AddOn" EntitySet="FoodItem_AddOn" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Table_Category" Association="Self.FK_Table_Category">
+      <End Role="Category" EntitySet="Category" />
+      <End Role="Food" EntitySet="Food" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Table_FoodItem" Association="Self.FK_Table_FoodItem">
+      <End Role="FoodItem" EntitySet="FoodItem" />
+      <End Role="FoodItem_AddOn" EntitySet="FoodItem_AddOn" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

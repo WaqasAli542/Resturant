@@ -1,0 +1,403 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ResturantDatabaseModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+  <EntityType Name="AddOn">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Price" Type="Double" Nullable="false" />
+    <NavigationProperty Name="Order_AddOn" Relationship="Self.FK_Order_AddOn_AddOn" FromRole="AddOn" ToRole="Order_AddOn" />
+    <NavigationProperty Name="FoodItem_AddOn" Relationship="Self.FK_Table_AddOn" FromRole="AddOn" ToRole="FoodItem_AddOn" />
+  </EntityType>
+  <EntityType Name="Admin">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="FirstName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="LastName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="Address" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="City" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="Country" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="Password" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="AccessLevel" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CousineId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Cousine" Relationship="Self.FK_Category_Cousine" FromRole="Category" ToRole="Cousine" />
+    <NavigationProperty Name="Foods" Relationship="Self.FK_Table_Category" FromRole="Category" ToRole="Food" />
+  </EntityType>
+  <EntityType Name="Cousine">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Categories" Relationship="Self.FK_Category_Cousine" FromRole="Cousine" ToRole="Category" />
+  </EntityType>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="FirstName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="LastName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="City" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Country" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="PostCode" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Orders" Relationship="Self.FK_Order_CustomerId" FromRole="Customer" ToRole="Order" />
+  </EntityType>
+  <EntityType Name="ExtraCharge">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Price" Type="Double" Nullable="false" />
+    <NavigationProperty Name="Orders" Relationship="Self.FK_Order_ExtraCharges" FromRole="ExtraCharges" ToRole="Order" />
+  </EntityType>
+  <EntityType Name="Food">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Tageline" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Image" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Availibilty" Type="Int32" Nullable="false" />
+    <Property Name="CategoryId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Category" Relationship="Self.FK_Table_Category" FromRole="Food" ToRole="Category" />
+    <NavigationProperty Name="FoodItems" Relationship="Self.FK_FoodItem_Food" FromRole="Food" ToRole="FoodItem" />
+  </EntityType>
+  <EntityType Name="FoodItem">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Size" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Price" Type="Double" Nullable="false" />
+    <Property Name="FoodId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Food" Relationship="Self.FK_FoodItem_Food" FromRole="FoodItem" ToRole="Food" />
+    <NavigationProperty Name="Order_FoodItem" Relationship="Self.FK_Order_FoodItem_FoodItem" FromRole="FoodItem" ToRole="Order_FoodItem" />
+    <NavigationProperty Name="FoodItem_AddOn" Relationship="Self.FK_Table_FoodItem" FromRole="FoodItem" ToRole="FoodItem_AddOn" />
+  </EntityType>
+  <EntityType Name="FoodItem_AddOn">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="FoodItemId" Type="Int32" Nullable="false" />
+    <Property Name="AddOnId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="AddOn" Relationship="Self.FK_Table_AddOn" FromRole="FoodItem_AddOn" ToRole="AddOn" />
+    <NavigationProperty Name="FoodItem" Relationship="Self.FK_Table_FoodItem" FromRole="FoodItem_AddOn" ToRole="FoodItem" />
+  </EntityType>
+  <EntityType Name="Order">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="CustomerId" Type="Int32" Nullable="false" />
+    <Property Name="TaxationId" Type="Int32" />
+    <Property Name="ExtraChargesId" Type="Int32" />
+    <Property Name="Status" Type="Int32" Nullable="false" />
+    <Property Name="PaymentMethodId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Customer" Relationship="Self.FK_Order_CustomerId" FromRole="Order" ToRole="Customer" />
+    <NavigationProperty Name="ExtraCharge" Relationship="Self.FK_Order_ExtraCharges" FromRole="Order" ToRole="ExtraCharges" />
+    <NavigationProperty Name="Order_AddOn" Relationship="Self.FK_Order_AddOn_Order" FromRole="Order" ToRole="Order_AddOn" />
+    <NavigationProperty Name="Order_FoodItem" Relationship="Self.FK_Order_FoodItem_Order" FromRole="Order" ToRole="Order_FoodItem" />
+    <NavigationProperty Name="PaymentMethod" Relationship="Self.FK_Order_PaymentMethod" FromRole="Order" ToRole="PaymentMethod" />
+    <NavigationProperty Name="Tax" Relationship="Self.FK_Order_Taxation" FromRole="Order" ToRole="Taxes" />
+  </EntityType>
+  <EntityType Name="Order_AddOn">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="OrderId" Type="Int32" Nullable="false" />
+    <Property Name="AddOnId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="AddOn" Relationship="Self.FK_Order_AddOn_AddOn" FromRole="Order_AddOn" ToRole="AddOn" />
+    <NavigationProperty Name="Order" Relationship="Self.FK_Order_AddOn_Order" FromRole="Order_AddOn" ToRole="Order" />
+  </EntityType>
+  <EntityType Name="Order_FoodItem">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="OrderId" Type="Int32" Nullable="false" />
+    <Property Name="FoodItemId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="FoodItem" Relationship="Self.FK_Order_FoodItem_FoodItem" FromRole="Order_FoodItem" ToRole="FoodItem" />
+    <NavigationProperty Name="Order" Relationship="Self.FK_Order_FoodItem_Order" FromRole="Order_FoodItem" ToRole="Order" />
+  </EntityType>
+  <EntityType Name="PaymentMethod">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Orders" Relationship="Self.FK_Order_PaymentMethod" FromRole="PaymentMethod" ToRole="Order" />
+  </EntityType>
+  <EntityType Name="Postcode">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Postcode1" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="AreaName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ResturantDetail">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Tagline" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Location" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Tax">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Percentage" Type="Double" Nullable="false" />
+    <NavigationProperty Name="Orders" Relationship="Self.FK_Order_Taxation" FromRole="Taxes" ToRole="Order" />
+  </EntityType>
+  <Association Name="FK_Order_AddOn_AddOn">
+    <End Role="AddOn" Type="Self.AddOn" Multiplicity="1" />
+    <End Role="Order_AddOn" Type="Self.Order_AddOn" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AddOn">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Order_AddOn">
+        <PropertyRef Name="AddOnId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Table_AddOn">
+    <End Role="AddOn" Type="Self.AddOn" Multiplicity="1" />
+    <End Role="FoodItem_AddOn" Type="Self.FoodItem_AddOn" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AddOn">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="FoodItem_AddOn">
+        <PropertyRef Name="AddOnId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Category_Cousine">
+    <End Role="Cousine" Type="Self.Cousine" Multiplicity="1" />
+    <End Role="Category" Type="Self.Category" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cousine">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Category">
+        <PropertyRef Name="CousineId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Table_Category">
+    <End Role="Category" Type="Self.Category" Multiplicity="1" />
+    <End Role="Food" Type="Self.Food" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Food">
+        <PropertyRef Name="CategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_CustomerId">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+    <End Role="Order" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="CustomerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_ExtraCharges">
+    <End Role="ExtraCharges" Type="Self.ExtraCharge" Multiplicity="0..1" />
+    <End Role="Order" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ExtraCharges">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="ExtraChargesId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FoodItem_Food">
+    <End Role="Food" Type="Self.Food" Multiplicity="1" />
+    <End Role="FoodItem" Type="Self.FoodItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Food">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="FoodItem">
+        <PropertyRef Name="FoodId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_FoodItem_FoodItem">
+    <End Role="FoodItem" Type="Self.FoodItem" Multiplicity="1" />
+    <End Role="Order_FoodItem" Type="Self.Order_FoodItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FoodItem">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Order_FoodItem">
+        <PropertyRef Name="FoodItemId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Table_FoodItem">
+    <End Role="FoodItem" Type="Self.FoodItem" Multiplicity="1" />
+    <End Role="FoodItem_AddOn" Type="Self.FoodItem_AddOn" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FoodItem">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="FoodItem_AddOn">
+        <PropertyRef Name="FoodItemId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_AddOn_Order">
+    <End Role="Order" Type="Self.Order" Multiplicity="1" />
+    <End Role="Order_AddOn" Type="Self.Order_AddOn" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Order">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Order_AddOn">
+        <PropertyRef Name="OrderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_FoodItem_Order">
+    <End Role="Order" Type="Self.Order" Multiplicity="1" />
+    <End Role="Order_FoodItem" Type="Self.Order_FoodItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Order">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Order_FoodItem">
+        <PropertyRef Name="OrderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_PaymentMethod">
+    <End Role="PaymentMethod" Type="Self.PaymentMethod" Multiplicity="1" />
+    <End Role="Order" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PaymentMethod">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="PaymentMethodId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_Taxation">
+    <End Role="Taxes" Type="Self.Tax" Multiplicity="0..1" />
+    <End Role="Order" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Taxes">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="TaxationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ResturantDatabaseEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="AddOns" EntityType="Self.AddOn" />
+    <EntitySet Name="Admins" EntityType="Self.Admin" />
+    <EntitySet Name="Categories" EntityType="Self.Category" />
+    <EntitySet Name="Cousines" EntityType="Self.Cousine" />
+    <EntitySet Name="Customers" EntityType="Self.Customer" />
+    <EntitySet Name="ExtraCharges" EntityType="Self.ExtraCharge" />
+    <EntitySet Name="Foods" EntityType="Self.Food" />
+    <EntitySet Name="FoodItems" EntityType="Self.FoodItem" />
+    <EntitySet Name="FoodItem_AddOn" EntityType="Self.FoodItem_AddOn" />
+    <EntitySet Name="Orders" EntityType="Self.Order" />
+    <EntitySet Name="Order_AddOn" EntityType="Self.Order_AddOn" />
+    <EntitySet Name="Order_FoodItem" EntityType="Self.Order_FoodItem" />
+    <EntitySet Name="PaymentMethods" EntityType="Self.PaymentMethod" />
+    <EntitySet Name="Postcodes" EntityType="Self.Postcode" />
+    <EntitySet Name="ResturantDetails" EntityType="Self.ResturantDetail" />
+    <EntitySet Name="Taxes" EntityType="Self.Tax" />
+    <AssociationSet Name="FK_Order_AddOn_AddOn" Association="Self.FK_Order_AddOn_AddOn">
+      <End Role="AddOn" EntitySet="AddOns" />
+      <End Role="Order_AddOn" EntitySet="Order_AddOn" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Table_AddOn" Association="Self.FK_Table_AddOn">
+      <End Role="AddOn" EntitySet="AddOns" />
+      <End Role="FoodItem_AddOn" EntitySet="FoodItem_AddOn" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Category_Cousine" Association="Self.FK_Category_Cousine">
+      <End Role="Cousine" EntitySet="Cousines" />
+      <End Role="Category" EntitySet="Categories" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Table_Category" Association="Self.FK_Table_Category">
+      <End Role="Category" EntitySet="Categories" />
+      <End Role="Food" EntitySet="Foods" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_CustomerId" Association="Self.FK_Order_CustomerId">
+      <End Role="Customer" EntitySet="Customers" />
+      <End Role="Order" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_ExtraCharges" Association="Self.FK_Order_ExtraCharges">
+      <End Role="ExtraCharges" EntitySet="ExtraCharges" />
+      <End Role="Order" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FoodItem_Food" Association="Self.FK_FoodItem_Food">
+      <End Role="Food" EntitySet="Foods" />
+      <End Role="FoodItem" EntitySet="FoodItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_FoodItem_FoodItem" Association="Self.FK_Order_FoodItem_FoodItem">
+      <End Role="FoodItem" EntitySet="FoodItems" />
+      <End Role="Order_FoodItem" EntitySet="Order_FoodItem" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Table_FoodItem" Association="Self.FK_Table_FoodItem">
+      <End Role="FoodItem" EntitySet="FoodItems" />
+      <End Role="FoodItem_AddOn" EntitySet="FoodItem_AddOn" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_AddOn_Order" Association="Self.FK_Order_AddOn_Order">
+      <End Role="Order" EntitySet="Orders" />
+      <End Role="Order_AddOn" EntitySet="Order_AddOn" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_FoodItem_Order" Association="Self.FK_Order_FoodItem_Order">
+      <End Role="Order" EntitySet="Orders" />
+      <End Role="Order_FoodItem" EntitySet="Order_FoodItem" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_PaymentMethod" Association="Self.FK_Order_PaymentMethod">
+      <End Role="PaymentMethod" EntitySet="PaymentMethods" />
+      <End Role="Order" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_Taxation" Association="Self.FK_Order_Taxation">
+      <End Role="Taxes" EntitySet="Taxes" />
+      <End Role="Order" EntitySet="Orders" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
